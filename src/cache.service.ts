@@ -10,6 +10,9 @@ export class CacheService {
   }
   set(key: string, value: string, ttl?: number): Promise<void> {
     if (ttl && ttl > 0) {
+      if (ttl < 1000) {
+        ttl = ttl * 1000;
+      }
       return this.cacheManager.set(key, value, ttl);
     } else {
       return this.cacheManager.set(key, value);
